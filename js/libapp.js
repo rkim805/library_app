@@ -2,15 +2,14 @@ window.onload = initLibrary();
 
 function initLibrary () {
   let myLibrary = [];
-  let myBook = new Book("Harry Lotter", "RK Lawling", "2");
-  let myBook2 = new Book("Yay", "Me", 4);
-  myLibrary = [myBook, myBook2];
-
   displayBooks();
   let addBtn = document.querySelector("#add-btn");
   let closeBtn = document.querySelector("#close-btn");
+  let submitBtn = document.querySelector("#submit-btn");
+
   addBtn.addEventListener("click", handleAddBook);
-  closeBtn.addEventListener("click", handleCloseBtn);
+  closeBtn.addEventListener("click", closeModal);
+  submitBtn.addEventListener("click", handleSubmit);
   window.addEventListener("click", modalFormHandler);
 
   function Book(title, author, pages) {
@@ -22,10 +21,19 @@ function initLibrary () {
 
   function displayBooks() {
     const container = document.querySelector("#card-container");
+
+    //remove current display to update display
+    removeChildNodes(container);
     myLibrary.forEach((book) => {
       const bookCard = createBookCard(book);
       container.appendChild(bookCard);
     })
+  }
+
+  function removeChildNodes(parent) {
+    while(parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
   }
 
   function createBookCard(book) {
@@ -49,15 +57,38 @@ function initLibrary () {
     form.style.display = "block";
   }
 
-  function handleCloseBtn() {
+  function closeModal() {
     const form = document.querySelector(".popup-form");
     form.style.display = "none";
+    form.reset();
   }
 
   function modalFormHandler(event) {
+    const form = document.querySelector("form");
     let modal = document.querySelector(".modal");
     if(event.target == modal) {
       modal.style.display = "none";
+      form.reset();
     }
   }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      const form = document.querySelector("form");
+      
+      //only process form if valid
+      if(form.reportValidity()) {
+        const formElems = form.elements;
+        let propsArr = [];
+        for(let i = 0; i < formElems.length; i++) {
+          if(formElems[i].nodeName === "INPUT") {
+            propsArr.push(formElems[i].value);
+          }
+        }
+        let newBook = new Book(...propsArr);
+        myLibrary.push(newBook);
+        form.reset();
+        displayBooks();
+      }
+    }
 }

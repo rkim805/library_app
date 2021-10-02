@@ -22,18 +22,22 @@ form {
   top: 50%;
   transform: translate(-50%, -50%);
 
-  height: 23em;
-  width: 30em;
-  padding: 1em;
-  border: none;
+  height: 500px;
+  width: 300px;
 }
 
-header {
-  margin-bottom: 20px;
+fieldset {
+  border: none;
+  margin-top: 50px;
+}
+
+legend {
+  margin: 0 auto;
 }
 
 #close-btn {
   float: right;
+  margin-right: 0.5rem;
   color: lightgray;
   font-size: 28px;
   font-weight: 900;
@@ -43,11 +47,16 @@ header {
   color: rgb(87, 87, 87);
   cursor: default;
 }
-input[type=text] {
-  padding: 10px;
+
+input[type=text], input[type=number] {
+  padding: 15px;
   margin: 10px 0;
   border: 2px solid #eee;
   box-shadow: 0 0 15px 4px rgba(110, 110, 110, 0.1);
   border-radius: 10px;
-  width: 50%;
+  width: 75%;
+}
+
+button[type=submit] {
+  margin-top: 30px;
 }
