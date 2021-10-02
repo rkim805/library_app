@@ -41,7 +41,11 @@ function initLibrary () {
     bookCard.setAttribute("class", "book-card");
     for (const prop in book) {
       const bookProp = document.createElement("p");
-      if(prop === "pages") {
+      if(prop === "title") {
+        console.log("test");
+        bookProp.textContent = `"${book[prop]}"`
+      }
+      else if(prop === "pages") {
         bookProp.textContent = `${book[prop]} pages`;
       }
       else {
@@ -53,13 +57,14 @@ function initLibrary () {
   }
 
   function handleAddBook() {
-    const form = document.querySelector(".popup-form");
-    form.style.display = "block";
+    const modal = document.querySelector(".popup-form");
+    modal.style.display = "block";
   }
 
   function closeModal() {
-    const form = document.querySelector(".popup-form");
-    form.style.display = "none";
+    const modal = document.querySelector(".popup-form");
+    const form = document.querySelector("form");
+    modal.style.display = "none";
     form.reset();
   }
 
@@ -87,7 +92,7 @@ function initLibrary () {
         }
         let newBook = new Book(...propsArr);
         myLibrary.push(newBook);
-        form.reset();
+        closeModal();
         displayBooks();
       }
     }
