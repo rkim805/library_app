@@ -1,9 +1,35 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
   background-color: rgb(222, 230, 233);
+  text-align: center;
+}
+
+h1 {
+  background-color: rgb(68, 68, 68);
+  color: white;
+  width: 100%;
+  padding: 30px 0px;
+  margin-bottom: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 48px;
+}
+
+#add-btn {
+  color: white;
+  background-color: lightslategray;
+  border: none;
+  padding: 20px 30px;
+  font-size: 24px;
+  transition: 0.3s;
+}
+
+#add-btn:hover {
+  background-color: rgb(51, 52, 53);
 }
 
 .modal {
@@ -20,7 +46,6 @@ html {
 form { 
   position: absolute;
   background-color: white;
-  text-align: center;
 
   left: 50%;
   top: 50%;
@@ -78,7 +103,6 @@ button[type=submit] {
   border-width: 2px;
   min-height: 300px;
   min-width: 200px;
-  text-align: center;
   margin: 20px 10px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 30px;
