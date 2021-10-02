@@ -4,8 +4,33 @@
     <meta charset="UTF-8">
     <title>Library App</title>
     <script src="js/libapp.js" defer></script>
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+    <button id="add-btn">Add New Book</button>
     <div id="card-container"></div>
+    <div class="popup-form modal">
+      <form action="">
+        <fieldset>
+          <header>
+          <span id="close-btn">&times;</span>
+          <legend>Book Info</legend>
+          </header>
+          <label for="title">
+            Title: <input type="text" title="title">
+          </label>
+          <br>
+          <label for="author">
+            Author: <input type="author" author="author">
+          </label>
+          <br>
+          <label for="pages">
+            Number of pages: <input type="pages">
+          </label>
+          <br>
+          <button type="submit">Submit</button>
+        </fieldset>
+      </form>
+    </div>
   </body>
 </html>

@@ -7,6 +7,11 @@ function initLibrary () {
   myLibrary = [myBook, myBook2];
 
   displayBooks();
+  let addBtn = document.querySelector("#add-btn");
+  let closeBtn = document.querySelector("#close-btn");
+  addBtn.addEventListener("click", handleAddBook);
+  closeBtn.addEventListener("click", handleCloseBtn);
+  window.addEventListener("click", modalFormHandler);
 
   function Book(title, author, pages) {
     this.title = title;
@@ -37,5 +42,22 @@ function initLibrary () {
       bookCard.appendChild(bookProp);
     }
     return bookCard;
+  }
+
+  function handleAddBook() {
+    const form = document.querySelector(".popup-form");
+    form.style.display = "block";
+  }
+
+  function handleCloseBtn() {
+    const form = document.querySelector(".popup-form");
+    form.style.display = "none";
+  }
+
+  function modalFormHandler(event) {
+    let modal = document.querySelector(".modal");
+    if(event.target == modal) {
+      modal.style.display = "none";
+    }
   }
 }
