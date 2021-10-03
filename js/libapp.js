@@ -1,13 +1,13 @@
 window.onload = initLibrary();
 
 function initLibrary () {
-  let myLibrary = [];
+  let myLibrary = new Map();
   displayBooks();
   let addBtn = document.querySelector("#add-btn");
   let closeBtn = document.querySelector("#close-btn");
   let submitBtn = document.querySelector("#submit-btn");
 
-  addBtn.addEventListener("click", handleAddBook);
+  addBtn.addEventListener("click", handleDisplayForm);
   closeBtn.addEventListener("click", closeModal);
   submitBtn.addEventListener("click", handleSubmit);
   window.addEventListener("click", modalFormHandler);
@@ -16,7 +16,6 @@ function initLibrary () {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read;
   }
 
   function displayBooks() {
@@ -39,24 +38,35 @@ function initLibrary () {
   function createBookCard(book) {
     const bookCard = document.createElement("div");
     bookCard.setAttribute("class", "book-card");
+
+    //data-index set to index of book in myLibrary
+    bookCard.setAttribute("data-key", book.hash);
     for (const prop in book) {
       const bookProp = document.createElement("p");
       if(prop === "title") {
-        console.log("test");
         bookProp.textContent = `"${book[prop]}"`
       }
       else if(prop === "pages") {
         bookProp.textContent = `${book[prop]} pages`;
       }
-      else {
+      else if(prop !== "hash") {
         bookProp.textContent = book[prop];
       }
       bookCard.appendChild(bookProp);
     }
+    bookCard.appendChild(createDeleteButton());
     return bookCard;
   }
 
-  function handleAddBook() {
+  function createDeleteButton() {
+    const delButton = document.createElement("button");
+    delButton.classList = "del-btn";
+    delButton.textContent = "Delete";
+    delButton.addEventListener("click", handleDelete);
+    return delButton;
+  }
+
+  function handleDisplayForm() {
     const modal = document.querySelector(".popup-form");
     modal.style.display = "block";
   }
@@ -77,23 +87,43 @@ function initLibrary () {
     }
   }
 
-    function handleSubmit(event) {
-      event.preventDefault();
-      const form = document.querySelector("form");
-      
-      //only process form if valid
-      if(form.reportValidity()) {
-        const formElems = form.elements;
-        let propsArr = [];
-        for(let i = 0; i < formElems.length; i++) {
-          if(formElems[i].nodeName === "INPUT") {
-            propsArr.push(formElems[i].value);
-          }
+  function handleDelete(event) {
+    console.log("test");
+    const key =  event.target.parentNode.getAttribute("data-key");
+    myLibrary.delete(key);
+    displayBooks();
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = document.querySelector("form");
+    
+    //only process form if valid
+    if(form.reportValidity()) {
+      const formElems = form.elements;
+      const propsArr = [];
+      for(let i = 0; i < formElems.length; i++) {
+        if(formElems[i].nodeName === "INPUT") {
+          propsArr.push(formElems[i].value);
         }
-        let newBook = new Book(...propsArr);
-        myLibrary.push(newBook);
+      }
+      const newBook = new Book(...propsArr);
+      const hash = createHash(newBook);
+      if(myLibrary.has(hash)) {
+        alert("This book has already been added to the library! " +
+              "Please only enter new books.");
+      }
+      else {
+        newBook.hash = hash;
+        myLibrary.set(hash, newBook);
         closeModal();
         displayBooks();
       }
     }
+  }
+
+  function createHash(book) {
+    const hashVal = objectHash.sha1(book);
+    return hashVal;
+  }
 }

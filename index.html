@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Library App</title>
+    <script src="node_modules/object-hash/dist/object_hash.js" defer></script>
     <script src="js/libapp.js" defer></script>
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -20,7 +21,7 @@
             <input type="text" name="author" placeholder="Author" required />
           <br>
             <input type="number" name="pages" placeholder="Number of Pages"
-             max="30000" required />
+             min="1" max="30000" required />
           <br>
           <button type="submit" id="submit-btn">Submit</button>
         </fieldset>
