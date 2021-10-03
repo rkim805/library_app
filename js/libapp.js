@@ -73,7 +73,7 @@ function initLibrary () {
 
   function createDeleteBtn() {
     const delBtn = document.createElement("Button");
-    delBtn.classList = "del-btn";
+    delBtn.className = "del-btn";
     delBtn.textContent = "Delete";
     delBtn.addEventListener("click", handleDelete);
     return delBtn;
@@ -90,11 +90,11 @@ function initLibrary () {
     const toggleBtn = document.createElement("Button");
     if(readStatus) {
       toggleBtn.textContent = "Read"
-      toggleBtn.classList = "read-on";
+      toggleBtn.className = "read-on";
     }
     else {
       toggleBtn.textContent = "Unread";
-      toggleBtn.classList = "read-off";
+      toggleBtn.className = "read-off";
     }
     toggleBtn.addEventListener("click", handleToggle);
     return toggleBtn;
@@ -104,11 +104,11 @@ function initLibrary () {
   function handleToggle() {
     if(this.textContent === "Unread") {
       this.textContent = "Read"
-      this.classList = "read-on";
+      this.className = "read-on";
     }
     else {
       this.textContent = "Unread";
-      this.classList = "read-off";
+      this.className = "read-off";
     }
 
     //get key from book card, toggle book object related to book card
