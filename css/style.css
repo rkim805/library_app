@@ -19,10 +19,13 @@ h1 {
   font-size: 48px;
 }
 
+button {
+  border: none;
+}
+
 #add-btn {
   color: white;
   background-color: lightslategray;
-  border: none;
   padding: 20px 30px;
   font-size: 24px;
   transition: 0.3s;
@@ -30,6 +33,22 @@ h1 {
 
 #add-btn:hover {
   background-color: rgb(51, 52, 53);
+  cursor: pointer;
+}
+
+.del-btn {
+  background-color: rgb(182, 65, 65);
+  color: white;
+  font-size: 18px;
+  padding: 15px 30px;
+  margin-top: 20px;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.del-btn:hover {
+  background-color: darkred;
+  cursor: pointer;
 }
 
 .modal {
