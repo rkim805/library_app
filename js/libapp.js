@@ -12,11 +12,22 @@ function initLibrary () {
   submitBtn.addEventListener("click", handleSubmit);
   window.addEventListener("click", modalFormHandler);
 
-  function Book(title, author, pages) {
+  function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
+    this.read = read;
+    this.hash = "";
   }
+
+  Book.prototype.toggleRead = function() {
+    this.read = !(this.read);
+  }
+
+  //ensure property is not displayed when properties are looped through
+  Object.defineProperty(Book.prototype, "toggleRead", {
+    enumerable: false
+  })
 
   function displayBooks() {
     const container = document.querySelector("#card-container");
@@ -49,21 +60,61 @@ function initLibrary () {
       else if(prop === "pages") {
         bookProp.textContent = `${book[prop]} pages`;
       }
-      else if(prop !== "hash") {
+      else if(prop !== "hash" && prop !== "read") {
         bookProp.textContent = book[prop];
       }
       bookCard.appendChild(bookProp);
     }
-    bookCard.appendChild(createDeleteButton());
+    bookCard.appendChild(createToggleReadBtn(book.read));
+    bookCard.appendChild(document.createElement("br"));
+    bookCard.appendChild(createDeleteBtn());
     return bookCard;
   }
 
-  function createDeleteButton() {
-    const delButton = document.createElement("button");
-    delButton.classList = "del-btn";
-    delButton.textContent = "Delete";
-    delButton.addEventListener("click", handleDelete);
-    return delButton;
+  function createDeleteBtn() {
+    const delBtn = document.createElement("Button");
+    delBtn.classList = "del-btn";
+    delBtn.textContent = "Delete";
+    delBtn.addEventListener("click", handleDelete);
+    return delBtn;
+  }
+
+  function handleDelete(event) {
+    const key =  event.target.parentNode.getAttribute("data-key");
+    myLibrary.delete(key);
+    displayBooks();
+  }
+
+  function createToggleReadBtn(readStatus) {
+    console.log(readStatus);
+    const toggleBtn = document.createElement("Button");
+    if(readStatus) {
+      toggleBtn.textContent = "Read"
+      toggleBtn.classList = "read-on";
+    }
+    else {
+      toggleBtn.textContent = "Unread";
+      toggleBtn.classList = "read-off";
+    }
+    toggleBtn.addEventListener("click", handleToggle);
+    return toggleBtn;
+  }
+  
+
+  function handleToggle() {
+    if(this.textContent === "Unread") {
+      this.textContent = "Read"
+      this.classList = "read-on";
+    }
+    else {
+      this.textContent = "Unread";
+      this.classList = "read-off";
+    }
+
+    //get key from book card, toggle book object related to book card
+    const key = this.parentNode.getAttribute("data-key");
+    const book = myLibrary.get(key);
+    book.toggleRead();
   }
 
   function handleDisplayForm() {
@@ -87,13 +138,6 @@ function initLibrary () {
     }
   }
 
-  function handleDelete(event) {
-    console.log("test");
-    const key =  event.target.parentNode.getAttribute("data-key");
-    myLibrary.delete(key);
-    displayBooks();
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
     const form = document.querySelector("form");
@@ -104,7 +148,12 @@ function initLibrary () {
       const propsArr = [];
       for(let i = 0; i < formElems.length; i++) {
         if(formElems[i].nodeName === "INPUT") {
-          propsArr.push(formElems[i].value);
+          if(formElems[i].type === "checkbox") {
+            propsArr.push(formElems[i].checked);
+          }
+          else {
+            propsArr.push(formElems[i].value);
+          }
         }
       }
       const newBook = new Book(...propsArr);

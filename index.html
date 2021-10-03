@@ -17,12 +17,15 @@
         <fieldset>
           <legend>Book Info</legend>
             <input type="text" name="title" placeholder="Title" required />
-          <br>
+            <br>
             <input type="text" name="author" placeholder="Author" required />
-          <br>
+            <br>
             <input type="number" name="pages" placeholder="Number of Pages"
              min="1" max="30000" required />
-          <br>
+            <br>
+            <input type="checkbox" name="read" id="read">
+            <label for="read">Read</label>
+            <br>
           <button type="submit" id="submit-btn">Submit</button>
         </fieldset>
       </form>

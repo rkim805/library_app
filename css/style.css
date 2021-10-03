@@ -23,6 +23,10 @@ button {
   border: none;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 #add-btn {
   color: white;
   background-color: lightslategray;
@@ -33,22 +37,40 @@ button {
 
 #add-btn:hover {
   background-color: rgb(51, 52, 53);
-  cursor: pointer;
 }
 
-.del-btn {
-  background-color: rgb(182, 65, 65);
-  color: white;
+.del-btn, .read-on, .read-off {
   font-size: 18px;
-  padding: 15px 30px;
+  width: 125px;
+  height: 60px;
   margin-top: 20px;
   transition: 0.3s;
   border-radius: 5px;
 }
 
+.del-btn {
+  background-color: rgb(182, 65, 65);
+  color: white;
+}
+
 .del-btn:hover {
   background-color: darkred;
-  cursor: pointer;
+}
+
+.read-on {
+  background-color: rgb(155, 204, 155);
+}
+
+.read-on:hover {
+  background-color: rgb(111, 156, 111);
+}
+
+.read-off {
+  background-color:rgb(228, 208, 208);
+}
+
+.read-off:hover {
+  background-color: rgb(190, 170, 170)
 }
 
 .modal {
