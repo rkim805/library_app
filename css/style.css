@@ -41,9 +41,10 @@ button:hover {
 
 .del-btn, .read-on, .read-off {
   font-size: 18px;
-  width: 125px;
+  width: 250px;
   height: 60px;
   margin-top: 20px;
+  margin-bottom: 10px;
   transition: 0.3s;
   border-radius: 5px;
 }
@@ -105,6 +106,16 @@ legend {
   margin: 0 auto;
 }
 
+#submit-btn {
+  color: white;
+  background-color: rgb(94, 94, 197);
+  width: 200px;
+  height: 60px;
+  border-radius: 5px;
+  font-size: 36px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 #close-btn {
   float: right;
   margin-right: 0.5rem;
@@ -120,7 +131,7 @@ legend {
 
 input[type=text], input[type=number] {
   padding: 15px;
-  margin: 10px 0;
+  margin: 15px 0;
   border: 2px solid #eee;
   box-shadow: 0 0 15px 4px rgba(110, 110, 110, 0.1);
   border-radius: 10px;
@@ -134,8 +145,8 @@ button[type=submit] {
 #card-container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
-  gap: 10px 20px;
+  justify-content: center;
+  gap: 20px 50px;
 }
 
 .book-card {
@@ -143,7 +154,7 @@ button[type=submit] {
   border-style: solid;
   border-width: 2px;
   min-height: 300px;
-  min-width: 200px;
+  min-width: 400px;
   margin: 20px 10px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 30px;
