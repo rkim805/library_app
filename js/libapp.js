@@ -1,23 +1,7 @@
 'use strict';
-window.onload = initLibrary();
-
-function initLibrary () {
-  let myLibrary = recreateMap();
-  if(myLibrary == undefined) {
-    myLibrary = new Map();
-  }
-
-  displayBooks();
-  let addBtn = document.querySelector("#add-btn");
-  let closeBtn = document.querySelector("#close-btn");
-  let submitBtn = document.querySelector("#submit-btn");
-
-  addBtn.addEventListener("click", handleDisplayForm);
-  closeBtn.addEventListener("click", closeModal);
-  submitBtn.addEventListener("click", handleSubmit);
-  window.addEventListener("click", modalFormHandler);
-
-  function Book(title, author, pages, read, hash="") {
+const libModule = (function() {
+  let myLibrary;
+  const Book = function(title, author, pages, read, hash="") {
     const book = Object.create(Book.prototype);
     book.title = title;
     book.author = author;
@@ -26,15 +10,11 @@ function initLibrary () {
     book.hash = hash;
     return book;
   }
+  Book.prototype.toggleRead = function() {
+    this.read = !(this.read);
+  };
 
-  Book.prototype.toggleRead = createProtoFunction();
-
-  //ensure property is not displayed when properties are looped through
-  Object.defineProperty(Book.prototype, "toggleRead", {
-    enumerable: false
-  })
-
-  function displayBooks() {
+  const displayBooks = function() {
     const container = document.querySelector("#card-container");
 
     //remove current display to update display
@@ -45,13 +25,13 @@ function initLibrary () {
     })
   }
 
-  function removeChildNodes(parent) {
+  const removeChildNodes = function(parent) {
     while(parent.firstChild) {
       parent.removeChild(parent.firstChild);
     }
   }
 
-  function createBookCard(book) {
+  const createBookCard = function(book) {
     const bookCard = document.createElement("div");
     bookCard.setAttribute("class", "book-card");
 
@@ -76,7 +56,7 @@ function initLibrary () {
     return bookCard;
   }
 
-  function createDeleteBtn() {
+  const createDeleteBtn = function() {
     const delBtn = document.createElement("Button");
     delBtn.className = "del-btn";
     delBtn.textContent = "Delete";
@@ -84,14 +64,14 @@ function initLibrary () {
     return delBtn;
   }
 
-  function handleDelete(event) {
+  const handleDelete = function(event) {
     const key =  event.target.parentNode.getAttribute("data-key");
     myLibrary.delete(key);
     displayBooks();
     updateLocalStorage();
   }
 
-  function createToggleReadBtn(readStatus) {
+  const createToggleReadBtn = function(readStatus) {
     const toggleBtn = document.createElement("Button");
     if(readStatus) {
       toggleBtn.textContent = "Read"
@@ -106,7 +86,7 @@ function initLibrary () {
   }
   
 
-  function handleToggle() {
+  const handleToggle = function() {
     if(this.textContent === "Unread") {
       this.textContent = "Read"
       this.className = "read-on";
@@ -123,19 +103,19 @@ function initLibrary () {
     updateLocalStorage();
   }
 
-  function handleDisplayForm() {
+  const handleDisplayForm = function() {
     const modal = document.querySelector(".popup-form");
     modal.style.display = "block";
   }
 
-  function closeModal() {
+  const closeModal = function() {
     const modal = document.querySelector(".popup-form");
     const form = document.querySelector("form");
     modal.style.display = "none";
     form.reset();
   }
 
-  function modalFormHandler(event) {
+  const modalFormHandler = function(event) {
     const form = document.querySelector("form");
     let modal = document.querySelector(".modal");
     if(event.target == modal) {
@@ -144,7 +124,7 @@ function initLibrary () {
     }
   }
 
-  function handleSubmit(event) {
+  const handleSubmit = function(event) {
     event.preventDefault();
     const form = document.querySelector("form");
     
@@ -178,19 +158,12 @@ function initLibrary () {
     }
   }
 
-  function createHash(book) {
+  const createHash = function(book) {
     const hashVal = objectHash.sha1(book);
     return hashVal;
   }
 
-  function createProtoFunction() {
-    const toggle = function() {
-      this.read = !(this.read);
-    };
-    return toggle;
-  }
-
-  function localStorageUsable() {
+  const localStorageUsable = function() {
     let test = "test";
     try {
       localStorage.setItem(test, test);
@@ -201,15 +174,14 @@ function initLibrary () {
     }
   }
 
-  function updateLocalStorage() {
+  const updateLocalStorage = function() {
     if(localStorageUsable()) {
-      console.log(myLibrary);
       let libJSON = JSON.stringify([...myLibrary]);
       localStorage.setItem("myLibrary", libJSON);
     }
   }
 
-  function recreateMap() {
+  const recreateMap = function() {
     let libJSON = localStorage.getItem("myLibrary");
     if(libJSON == undefined) {
       return libJSON;
@@ -232,7 +204,7 @@ function initLibrary () {
    * 
    * @returns libObj -- Object with Book objects in place of generic objects.
    */
-  function recreateBooks(libObj) {
+  const recreateBooks = function(libObj) {
     for(let i = 0; i < libObj.length; i++) {
       let objToConvert = libObj[i][1]
       libObj[i][1] = Book(objToConvert.title, objToConvert.author, 
@@ -240,4 +212,30 @@ function initLibrary () {
     }
     return libObj;
   }
-}
+
+  //ensure property is not displayed when properties are looped through
+  Object.defineProperty(Book.prototype, "toggleRead", {
+    enumerable: false
+  })
+
+  return {
+    initLibrary: function () {
+      myLibrary = recreateMap();
+      if(myLibrary == undefined) {
+        myLibrary = new Map();
+      }
+
+      displayBooks();
+      let addBtn = document.querySelector("#add-btn");
+      let closeBtn = document.querySelector("#close-btn");
+      let submitBtn = document.querySelector("#submit-btn");
+
+      addBtn.addEventListener("click", handleDisplayForm);
+      closeBtn.addEventListener("click", closeModal);
+      submitBtn.addEventListener("click", handleSubmit);
+      window.addEventListener("click", modalFormHandler);
+    }
+  };
+})();
+
+window.onload = libModule.initLibrary();
