@@ -6,12 +6,12 @@ to persist state across sessions.
 
 ## How I worked on this project:
 I first began by creating user stories:
-    - My app should add books that I want to track to the application.
-    - The app should track the title, author, number of pages, and whether or not I've read the book.
-    - I want the app to display books that I've tracked, with cards for each  book.
-    - I should be able to delete books from the app.
-    - I should be able to update whether or not a book has been read.
-    - I want the app to display all previous data in a new session.
+- My app should add books that I want to track to the application.
+- The app should track the title, author, number of pages, and whether or not I've read the book.
+- I want the app to display books that I've tracked, with cards for each  book.
+- I should be able to delete books from the app.
+- I should be able to update whether or not a book has been read.
+- I want the app to display all previous data in a new session.
 
 I then worked iteratively to fulfill each user story; first creating a skeleton
 application that would simply display each book, then creating the ability for
