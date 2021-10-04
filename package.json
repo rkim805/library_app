@@ -1,0 +1,27 @@
+{
+  "name": "library_app",
+  "version": "1.0.0",
+  "description": "## Summary This project is a simple client-sided CRUD application, using Local Storage to persist state across sessions.",
+  "private": true,
+  "dependencies": {
+    "object-hash": "^2.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.56.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkim805/library_app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rkim805/library_app/issues"
+  },
+  "homepage": "https://github.com/rkim805/library_app#readme"
+}
