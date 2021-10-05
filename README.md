@@ -18,7 +18,7 @@ application that would simply display each book, then creating the ability for
 the user to input data, then updating the display with tracked data, etc.
 
 ## How to navigate this project:
-The handling of the CRUD application is located in `js/libapp.js`.
+The handling of the CRUD application is located in `src/index.js`.
 
 node_modules contains an imported library to create unique hash identifiers
 for the book Objects.
