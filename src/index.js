@@ -1,4 +1,5 @@
-import _ from "object-hash"
+import _ from "object-hash";
+import './style.css';
 'use strict';
 
 const libModule = (function() {
